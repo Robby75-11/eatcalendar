@@ -79,7 +79,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Arrays.asList(
+        config.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
                 "https://eat-calendar.vercel.app"
         ));
