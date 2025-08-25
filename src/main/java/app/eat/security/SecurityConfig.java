@@ -67,6 +67,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/recipes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/recipes/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -82,7 +83,7 @@ public class SecurityConfig {
                 "http://localhost:5173",
                 "https://eat-calendar.vercel.app"
         ));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.addAllowedHeader("*"); // meglio di lista ristretta
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

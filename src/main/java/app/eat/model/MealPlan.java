@@ -4,6 +4,8 @@ import app.eat.enumeration.GiornoSettimana;
 import app.eat.enumeration.TipoPasto;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Data
@@ -19,6 +21,8 @@ public class MealPlan {
     private TipoPasto pasto;
 
     @ManyToOne
+    @JoinColumn(name = "recipe_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Recipe recipe;
 
     @ManyToOne
