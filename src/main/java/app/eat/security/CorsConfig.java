@@ -14,7 +14,8 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173", // frontend
+        config.setAllowedOrigins(Arrays.asList(
+                "http://localhost:5173", // frontend
                 "https://eat-calendar.vercel.app"  // frontend in produzione su Vercel
         ));
         config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
