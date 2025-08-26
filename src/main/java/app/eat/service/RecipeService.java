@@ -29,6 +29,18 @@ public class RecipeService {
     public Recipe findById(Long id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException("Recipe not found"));
     }
+
+    public Recipe update(Long id, Recipe updatedRecipe) {
+        Recipe existing = findById(id); // recupera la ricetta esistente
+
+        existing.setTitolo(updatedRecipe.getTitolo());
+        existing.setDescrizione(updatedRecipe.getDescrizione());
+        existing.setIngredienti(updatedRecipe.getIngredienti());
+
+               return repo.save(existing);
+    }
+
+
     // 🔹 Caricamento immagini e associazione alla ricetta
     public Recipe addImagesToRecipe(Long id, List<MultipartFile> files) throws IOException {
         Recipe recipe = findById(id);

@@ -35,6 +35,19 @@ public class RecipeController {
         return service.save(r);
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Recipe> updateRecipe(
+            @PathVariable Long id,
+            @RequestBody Recipe updatedRecipe) {
+        try {
+            Recipe recipe = service.update(id, updatedRecipe);
+            return ResponseEntity.ok(recipe);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // --- Endpoint per aggiungere immagini a una ricetta ---
     @PatchMapping("/{id}/images")
     @PreAuthorize("hasRole('ADMIN')")
