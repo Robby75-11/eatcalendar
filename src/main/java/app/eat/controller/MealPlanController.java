@@ -1,9 +1,7 @@
 package app.eat.controller;
 
 import app.eat.model.MealPlan;
-import app.eat.model.User;
 import app.eat.service.MealPlanService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -2,18 +2,14 @@ package app.eat.controller;
 
 import app.eat.dto.LoginDto;
 import app.eat.dto.RegisterDto;
-import app.eat.dto.AuthResponse;
 import app.eat.enumeration.Role;
 import app.eat.model.User;
 import app.eat.repository.UserRepository;
 import app.eat.security.JwtTool;
-import app.eat.service.AuthService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;

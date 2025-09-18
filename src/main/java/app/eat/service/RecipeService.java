@@ -1,7 +1,9 @@
 package app.eat.service;
 
 import app.eat.model.Recipe;
+import app.eat.repository.MealPlanRepository;
 import app.eat.repository.RecipeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,24 +12,26 @@ import java.util.List;
 
 @Service
 public class RecipeService {
-    private final RecipeRepository repo;
+    private final RecipeRepository recipeRepo;
     private final ImmagineService immagineService;
+    private final MealPlanRepository mealPlanRepo;
 
-    public RecipeService(RecipeRepository repo, ImmagineService immagineService) {
-        this.repo = repo;
+    public RecipeService(RecipeRepository recipeRepo, ImmagineService immagineService, MealPlanRepository mealPlanRepo) {
+        this.recipeRepo = recipeRepo;
         this.immagineService = immagineService;
+        this.mealPlanRepo = mealPlanRepo;
     }
 
     public List<Recipe> findAll() {
-        return repo.findAll();
+        return recipeRepo.findAll();
     }
 
     public Recipe save(Recipe r) {
-        return repo.save(r);
+        return recipeRepo.save(r);
     }
 
     public Recipe findById(Long id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("Recipe not found"));
+        return recipeRepo.findById(id).orElseThrow(() -> new RuntimeException("Recipe not found"));
     }
 
     public Recipe update(Long id, Recipe updatedRecipe) {
@@ -37,7 +41,7 @@ public class RecipeService {
         existing.setDescrizione(updatedRecipe.getDescrizione());
         existing.setIngredienti(updatedRecipe.getIngredienti());
 
-               return repo.save(existing);
+               return recipeRepo.save(existing);
     }
 
 
@@ -50,10 +54,12 @@ public class RecipeService {
             recipe.setImmagineUrl(imageUrl); // aggiunge alla lista immagini
         }
 
-        return repo.save(recipe);
+        return recipeRepo.save(recipe);
     }
 
+    @Transactional // Aggiungi questa annotazione
     public void delete(Long id) {
-        repo.deleteById(id);
+        mealPlanRepo.deleteByRecipeId(id); // Elimina prima tutti i MealPlan che utilizzano questa ricetta
+        recipeRepo.deleteById(id); // Poi elimina la ricetta
     }
 }
